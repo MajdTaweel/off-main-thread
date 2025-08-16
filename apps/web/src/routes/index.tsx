@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import logo from '../assets/logo.png';
 
 export const Route = createFileRoute('/')({
@@ -40,18 +40,18 @@ function HomeComponent() {
       </div>
 
       <div className="mt-8 flex gap-4">
-        <a
+        <Link
           className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground text-sm hover:bg-primary/90"
-          href="/main-thread"
+          to="/main-thread"
         >
           Main Thread Demo (Freezes)
-        </a>
-        <a
+        </Link>
+        <Link
           className="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 font-medium text-secondary-foreground text-sm hover:bg-secondary/90"
-          href="/web-worker"
+          to="/web-worker"
         >
           Web Worker Demo (Smooth)
-        </a>
+        </Link>
       </div>
     </div>
   );
