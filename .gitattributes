@@ -10,4 +10,7 @@
 *.jsonc filter=lfs diff=lfs merge=lfs -text
 *.lock filter=lfs diff=lfs merge=lfs -text
 *.toml filter=lfs diff=lfs merge=lfs -text
+*.ico filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
 * !text !filter !merge !diff
+/apps/web/data/2024-01-01-15.json filter=lfs diff=lfs merge=lfs -text

@@ -1,10 +1,12 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router';
 
-import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from './mode-toggle';
 
 export default function Header() {
   const links = [
-    { to: "/", label: "Home" },
+    { to: '/', label: 'Home' },
+    { to: '/main-thread', label: 'Main Thread Demo' },
+    { to: '/web-worker', label: 'Web Worker Demo' },
   ];
 
   return (
@@ -13,10 +15,7 @@ export default function Header() {
         <nav className="flex gap-4 text-lg">
           {links.map(({ to, label }) => {
             return (
-              <Link
-                key={to}
-                to={to}
-              >
+              <Link key={to} to={to}>
                 {label}
               </Link>
             );
