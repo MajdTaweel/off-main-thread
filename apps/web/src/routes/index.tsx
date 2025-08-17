@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import logo from '../assets/logo.png';
 
 export const Route = createFileRoute('/')({
   component: HomeComponent,
@@ -14,7 +13,7 @@ function HomeComponent() {
             alt="Off Main Thread Logo"
             className="h-24 w-24 rounded-lg border-1 border-primary/20"
             height={96}
-            src={logo}
+            src="/logo.png"
             width={96}
           />
         </picture>

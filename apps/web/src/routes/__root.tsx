@@ -5,13 +5,14 @@ import {
   useRouterState,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import { AlertProvider } from '@/components/alert-provider';
 import Header from '@/components/header';
 import Loader from '@/components/loader';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import '../index.css';
 
-export type RouterAppContext = {};
+export type RouterAppContext = Record<string, never>;
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
   component: RootComponent,
@@ -48,11 +49,13 @@ function RootComponent() {
         disableTransitionOnChange
         storageKey="vite-ui-theme"
       >
-        <div className="grid h-svh grid-rows-[auto_1fr]">
-          <Header />
-          {isFetching ? <Loader /> : <Outlet />}
-        </div>
-        <Toaster richColors />
+        <AlertProvider>
+          <div className="grid h-svh grid-rows-[auto_1fr]">
+            <Header />
+            {isFetching ? <Loader /> : <Outlet />}
+          </div>
+          <Toaster richColors />
+        </AlertProvider>
       </ThemeProvider>
       <TanStackRouterDevtools position="bottom-left" />
     </>

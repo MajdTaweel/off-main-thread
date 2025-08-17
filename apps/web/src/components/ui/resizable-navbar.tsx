@@ -8,7 +8,6 @@ import {
   useScroll,
 } from 'motion/react';
 import React, { useRef, useState } from 'react';
-import logo from '@/assets/logo.png';
 import { cn } from '@/lib/utils';
 
 interface NavbarProps {
@@ -236,7 +235,7 @@ export const NavbarLogo = () => {
       to="/"
     >
       <picture>
-        <img alt="logo" height={30} src={logo} width={30} />
+        <img alt="logo" height={30} src="/logo.png" width={30} />
       </picture>
       <span className="font-medium text-black dark:text-white">
         Off Main Thread
