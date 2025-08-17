@@ -15,6 +15,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
+import type { ProcessedEvent } from '@/lib/data-processor';
 
 const chartConfig = {
   count: {
@@ -23,11 +24,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function EventsChart({
-  data,
-}: {
-  data: { type: string; count: number }[];
-}) {
+export function EventsChart({ data }: { data: ProcessedEvent[] }) {
   return (
     <Card>
       <CardHeader>

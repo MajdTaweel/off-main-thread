@@ -3,39 +3,22 @@ import { useState } from 'react';
 import { useAlert } from '@/components/alert-provider';
 import { EventsChart } from '@/components/events-chart';
 import { Button } from '@/components/ui/button';
+import {
+  fetchAndProcessGitHubEvents,
+  type ProcessedEvent,
+} from '@/lib/data-processor';
 
 export const Route = createFileRoute('/main-thread')({
   component: MainThreadDemo,
 });
 
 const processData = async () => {
-  const res = await fetch('/data/gharchive/massive-sample.json');
-  const raw = await res.text();
-
-  // This is where the UI freezes
-  const events = raw
-    .split('\n')
-    .filter((line) => line.trim())
-    .map((line) => JSON.parse(line));
-
-  // This also freezes the UI
-  const grouped = events.reduce((acc, ev) => {
-    acc[ev.type] = (acc[ev.type] || 0) + 1;
-    return acc;
-  }, {});
-
-  const processedData = Object.entries(grouped).map(([type, count]) => ({
-    type: type.replace('Event', '').replace('PullRequest', 'PR'),
-    count: count as number,
-  }));
-
-  return processedData;
+  // This freezes the UI
+  return await fetchAndProcessGitHubEvents();
 };
 
 function MainThreadDemo() {
-  const [chartData, setChartData] = useState<{ type: string; count: number }[]>(
-    []
-  );
+  const [chartData, setChartData] = useState<ProcessedEvent[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const { showAlert } = useAlert();
 
@@ -45,8 +28,10 @@ function MainThreadDemo() {
       const data = await processData();
       setChartData(data);
       showAlert('success', 'Data processed successfully!', 'Success');
-    } catch {
-      showAlert('destructive', 'Failed to process data', 'Error');
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Failed to process data';
+      showAlert('destructive', errorMessage, 'Error');
     } finally {
       setIsProcessing(false);
     }

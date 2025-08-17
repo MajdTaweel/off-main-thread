@@ -16,3 +16,4 @@
 /apps/web/data/2024-01-01-15.json filter=lfs diff=lfs merge=lfs -text
 /apps/web/public/data/gharchive/2024-01-01-15.json filter=lfs diff=lfs merge=lfs -text
 /apps/web/public/data/gharchive/massive-sample.json filter=lfs diff=lfs merge=lfs -text
+apps/web/public/data/gharchive/500mb-sample.json filter=lfs diff=lfs merge=lfs -text
