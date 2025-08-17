@@ -29,8 +29,8 @@ function HomeComponent() {
           processing large datasets.
         </p>
         <p className="text-muted-foreground text-sm">
-          This app fetches massive GitHub Archive files (~100MB+ JSON) and
-          visualizes event data using charts.
+          This app processes a 445MB GitHub Archive file and visualizes event
+          data using charts.
         </p>
         <p className="text-muted-foreground text-sm">
           Compare the performance difference between main thread processing

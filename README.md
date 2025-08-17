@@ -13,8 +13,8 @@ Build a frontend app that:
 
 ## ❄️ The Problem
 
-- GitHub Archive files are **massive (~100MB+ JSON)**
-- Parsing thousands of records on the **main thread** blocks the browser
+- GitHub Archive files are **massive (445MB JSON)**
+- Parsing hundreds of thousands of records on the **main thread** blocks the browser
 - UI becomes completely unresponsive during processing
 - Users can't interact with the interface while data is being processed
 
@@ -33,6 +33,7 @@ Build a frontend app that:
 - **Recharts** - Interactive data visualization
 - **Alert System** - User-friendly notifications
 - **Dark Mode** - Modern UI with theme support
+- **Comlink** - Simplified Web Worker communication
 
 ## 🛠️ Tech Stack
 
@@ -42,6 +43,7 @@ Build a frontend app that:
 | **TanStack Router**   | Type-safe file-based routing             |
 | **Recharts**          | Interactive data visualization           |
 | **Web Workers**       | Offload heavy computations               |
+| **Comlink**           | Simplified Web Worker communication      |
 | **TailwindCSS**       | Utility-first styling                    |
 | **TypeScript**        | Type safety and developer experience     |
 
