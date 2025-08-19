@@ -2,6 +2,12 @@
 
 A demonstration of how Web Workers can prevent UI freezing when processing large datasets. This project showcases the performance difference between processing massive GitHub Archive files on the main thread versus using Web Workers.
 
+## 🌐 Live Demo
+
+**🔗 [View Live Demo](https://off-main-thread.fly.dev)**
+
+Experience the performance difference between main thread processing and Web Worker processing in real-time!
+
 ## 🎯 Goal
 
 Build a frontend app that:

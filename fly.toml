@@ -1,0 +1,26 @@
+# fly.toml app configuration file generated for off-main-thread on 2025-08-19T22:21:01+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'off-main-thread'
+primary_region = 'cdg'
+
+[build]
+
+[env]
+  PORT = '4173'
+  NODE_ENV = 'production'
+
+[http_service]
+  internal_port = 4173
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1
