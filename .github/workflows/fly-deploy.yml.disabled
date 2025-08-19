@@ -1,4 +1,13 @@
 # See https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
+#
+# This workflow is currently disabled. To enable automatic deployments:
+# 1. Uncomment the lines below
+# 2. Add FLY_API_TOKEN to your GitHub repository secrets
+# 3. Push to the main branch to trigger deployment
+#
+# To get a FLY_API_TOKEN:
+# 1. Run: fly tokens create --expiry 999999h
+# 2. Copy the token and add it to GitHub Secrets
 
 # name: Fly Deploy
 # on:
