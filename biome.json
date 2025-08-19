@@ -16,7 +16,8 @@
       "!bts.jsonc",
       "!**/.expo",
       "!**/.wrangler",
-      "!**/.source"
+      "!**/.source",
+      "!**/public/data/gharchive/**"
     ]
   },
   "extends": ["ultracite"]
