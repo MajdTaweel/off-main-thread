@@ -36,10 +36,13 @@ export default function Header() {
         <MobileNav>
           <MobileNavHeader>
             <NavbarLogo />
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            />
+            <div className="flex items-center gap-2">
+              <ModeToggle />
+              <MobileNavToggle
+                isOpen={isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              />
+            </div>
           </MobileNavHeader>
 
           <MobileNavMenu
@@ -56,9 +59,6 @@ export default function Header() {
                 <span className="block">{item.name}</span>
               </a>
             ))}
-            <div className="relative mt-4 flex justify-center">
-              <ModeToggle />
-            </div>
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
