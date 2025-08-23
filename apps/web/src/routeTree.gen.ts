@@ -10,7 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WebWorkerRouteImport } from './routes/web-worker'
-import { Route as MainThreadRouteImport } from './routes/main-thread'
+import { Route as StreamingRouteImport } from './routes/streaming'
+import { Route as FreezingRouteImport } from './routes/freezing'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WebWorkerRoute = WebWorkerRouteImport.update({
@@ -18,9 +19,14 @@ const WebWorkerRoute = WebWorkerRouteImport.update({
   path: '/web-worker',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MainThreadRoute = MainThreadRouteImport.update({
-  id: '/main-thread',
-  path: '/main-thread',
+const StreamingRoute = StreamingRouteImport.update({
+  id: '/streaming',
+  path: '/streaming',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreezingRoute = FreezingRouteImport.update({
+  id: '/freezing',
+  path: '/freezing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,31 +37,35 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/main-thread': typeof MainThreadRoute
+  '/freezing': typeof FreezingRoute
+  '/streaming': typeof StreamingRoute
   '/web-worker': typeof WebWorkerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/main-thread': typeof MainThreadRoute
+  '/freezing': typeof FreezingRoute
+  '/streaming': typeof StreamingRoute
   '/web-worker': typeof WebWorkerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/main-thread': typeof MainThreadRoute
+  '/freezing': typeof FreezingRoute
+  '/streaming': typeof StreamingRoute
   '/web-worker': typeof WebWorkerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/main-thread' | '/web-worker'
+  fullPaths: '/' | '/freezing' | '/streaming' | '/web-worker'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/main-thread' | '/web-worker'
-  id: '__root__' | '/' | '/main-thread' | '/web-worker'
+  to: '/' | '/freezing' | '/streaming' | '/web-worker'
+  id: '__root__' | '/' | '/freezing' | '/streaming' | '/web-worker'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  MainThreadRoute: typeof MainThreadRoute
+  FreezingRoute: typeof FreezingRoute
+  StreamingRoute: typeof StreamingRoute
   WebWorkerRoute: typeof WebWorkerRoute
 }
 
@@ -68,11 +78,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebWorkerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/main-thread': {
-      id: '/main-thread'
-      path: '/main-thread'
-      fullPath: '/main-thread'
-      preLoaderRoute: typeof MainThreadRouteImport
+    '/streaming': {
+      id: '/streaming'
+      path: '/streaming'
+      fullPath: '/streaming'
+      preLoaderRoute: typeof StreamingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/freezing': {
+      id: '/freezing'
+      path: '/freezing'
+      fullPath: '/freezing'
+      preLoaderRoute: typeof FreezingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -87,7 +104,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  MainThreadRoute: MainThreadRoute,
+  FreezingRoute: FreezingRoute,
+  StreamingRoute: StreamingRoute,
   WebWorkerRoute: WebWorkerRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { wrap } from 'comlink';
 import { useState } from 'react';
 import { useAlert } from '@/components/alert-provider';
@@ -71,15 +71,50 @@ function WebWorkerDemo() {
             </h3>
             <p className="text-green-700 text-sm">
               When you click the button, the UI will remain completely
-              responsive while processing the same 445MB of data in a Web
+              responsive while processing the same live GitHub data in a Web
               Worker. Notice how smooth the interface stays! Compare this to the{' '}
-              <a
+              <Link
                 className="font-medium text-green-900 underline hover:text-green-950"
-                href="/main-thread"
+                to="/freezing"
               >
-                Main Thread Demo
-              </a>{' '}
-              to see the dramatic difference.
+                Freezing Demo
+              </Link>{' '}
+              and{' '}
+              <Link
+                className="font-medium text-green-900 underline hover:text-green-950"
+                to="/streaming"
+              >
+                Streaming Solution
+              </Link>{' '}
+              to see the different approaches!
+            </p>
+          </div>
+
+          <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
+            <h3 className="mb-2 font-semibold text-blue-800">
+              🔄 Streaming + Web Worker
+            </h3>
+            <p className="text-blue-700 text-sm">
+              This Web Worker actually uses streaming internally to process the
+              large file efficiently. However, even if it used{' '}
+              <code className="rounded bg-blue-100 px-1">response.text()</code>{' '}
+              to load the entire file at once, the UI would still remain
+              responsive because the processing happens in a separate thread.
+              This demonstrates the key advantage of Web Workers: they can
+              perform any heavy computation without blocking the main thread.
+            </p>
+          </div>
+
+          <div className="mt-4 rounded-lg border border-purple-200 bg-purple-50 p-4">
+            <h3 className="mb-2 font-semibold text-purple-800">
+              🧵 Threading Benefits
+            </h3>
+            <p className="text-purple-700 text-sm">
+              Web Workers run in a completely separate thread from the main UI
+              thread. This means they can perform CPU-intensive tasks, large
+              file processing, complex calculations, or any blocking operations
+              without affecting the user interface. The main thread stays free
+              to handle user interactions, animations, and UI updates.
             </p>
           </div>
         </div>

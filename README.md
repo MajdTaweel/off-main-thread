@@ -1,6 +1,6 @@
-# 📊 Massive GitHub Event Visualizer
+# 📊 Frontend Performance Solutions
 
-A demonstration of how Web Workers can prevent UI freezing when processing large datasets. This project showcases the performance difference between processing massive GitHub Archive files on the main thread versus using Web Workers.
+A comprehensive demonstration of different approaches to handle large data processing without freezing the UI. This project showcases three different solutions for processing massive GitHub Archive files and their impact on user experience.
 
 ## 🌐 Live Demo
 
@@ -10,25 +10,35 @@ Experience the performance difference between main thread processing and Web Wor
 
 ## 🎯 Goal
 
-Build a frontend app that:
+Build a frontend app that demonstrates three different approaches to processing large datasets:
 
-1. Fetches large GitHub event archives (JSON lines format)
-2. Parses and transforms the data (groups events by type)
-3. Displays results using interactive charts
-4. Demonstrates UI freezing vs smooth performance
+1. **UI Freezing Demo** - Shows the problem of blocking the main thread
+2. **Streaming Solution** - Processes data in chunks to keep UI responsive
+3. **Web Worker Solution** - Moves processing to a background thread
+
+## 📊 Dataset
+
+The app processes a **79MB gzipped GitHub events file** that contains:
+
+- **NDJSON (Newline Delimited JSON)** format - each line is a valid JSON object
+- **Several hundred MB** when uncompressed
+- **Hundreds of thousands** of GitHub events from January 1st, 2024
+- **Real production data** from GitHub Archive
+
+Learn more about [NDJSON format](https://en.wikipedia.org/wiki/JSON_streaming#Newline-delimited_JSON).
 
 ## ❄️ The Problem
 
-- GitHub Archive files are **massive (445MB JSON)**
-- Parsing hundreds of thousands of records on the **main thread** blocks the browser
-- UI becomes completely unresponsive during processing
-- Users can't interact with the interface while data is being processed
+- Large datasets can cause the UI to freeze when processed on the main thread
+- Modern browsers have protections that prevent extremely large files from loading synchronously
+- Heavy computations block user interactions and animations
+- Poor user experience when the interface becomes unresponsive
 
-## ✅ The Solution
+## ✅ The Solutions
 
-- **Main Thread Demo**: Shows UI freezing with synchronous processing
-- **Web Worker Demo**: Demonstrates smooth UI with offloaded processing
-- **Performance Comparison**: Clear before/after demonstration
+- **Streaming**: Process data in small chunks to keep the main thread responsive
+- **Web Workers**: Move heavy computations to background threads
+- **Performance Comparison**: Clear demonstration of different approaches
 
 ## 🚀 Features
 
@@ -71,9 +81,10 @@ Open [http://localhost:3001](http://localhost:3001) in your browser to see the a
 
 ## 📊 Demo Pages
 
-- **Home** (`/`) - Project overview and navigation
-- **Main Thread Demo** (`/main-thread`) - Demonstrates UI freezing with large data processing
-- **Web Worker Demo** (`/web-worker`) - Shows smooth performance with Web Workers
+- **Home** (`/`) - Project overview and navigation to all demos
+- **UI Freezing Demo** (`/freezing`) - Shows the problem of blocking the main thread
+- **Streaming Solution** (`/streaming`) - Processes data in chunks to keep UI responsive
+- **Web Worker Solution** (`/web-worker`) - Moves processing to a background thread
 
 ## 📁 Project Structure
 
@@ -93,10 +104,12 @@ off-main-thread/
 
 This project demonstrates:
 
-1. **Main Thread Blocking** - How heavy computations freeze the UI
-2. **Web Worker Benefits** - Offloading work to background threads
-3. **Performance Optimization** - When and how to use Web Workers
-4. **User Experience** - The importance of responsive interfaces
+1. **UI Freezing Problem** - How heavy computations can block the main thread
+2. **Streaming Solutions** - Processing data in chunks to maintain responsiveness
+3. **Web Worker Benefits** - Moving work to background threads
+4. **Performance Optimization** - When and how to use different approaches
+5. **User Experience** - The importance of responsive interfaces
+6. **Real-world Data Processing** - Handling large NDJSON datasets
 
 ## 📝 Available Scripts
 

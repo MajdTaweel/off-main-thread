@@ -3,35 +3,69 @@ export interface ProcessedEvent {
   count: number;
 }
 
-export async function fetchAndProcessGitHubEvents(): Promise<ProcessedEvent[]> {
-  const response = await fetch('/data/gharchive/500mb-sample.json');
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch data: ${response.status} ${response.statusText}`
-    );
+async function processStream(
+  reader: ReadableStreamDefaultReader<Uint8Array>,
+  decoder: TextDecoder,
+  grouped: Record<string, number>,
+  buffer = ''
+): Promise<void> {
+  const result = await reader.read();
+
+  if (result.done) {
+    // Process any remaining data in buffer
+    if (buffer.trim()) {
+      try {
+        const event = JSON.parse(buffer) as { type: string };
+        grouped[event.type] = (grouped[event.type] || 0) + 1;
+      } catch {
+        // Ignore invalid JSON
+      }
+    }
+    return;
   }
 
-  const rawData = await response.text();
+  const chunk = decoder.decode(result.value, { stream: true });
+  const newBuffer = buffer + chunk;
+  const lines = newBuffer.split('\n');
 
-  // This is where the UI freezes (when ran on main thread)
-  const events = rawData
-    .split('\n')
-    .filter((line) => line.trim())
-    .map((line) => JSON.parse(line));
+  // Process all complete lines (all but the last one)
+  for (let i = 0; i < lines.length - 1; i++) {
+    const line = lines[i];
+    if (line.trim()) {
+      try {
+        const event = JSON.parse(line) as { type: string };
+        grouped[event.type] = (grouped[event.type] || 0) + 1;
+      } catch {
+        // Ignore invalid JSON
+      }
+    }
+  }
 
-  // This also freezes the UI (when ran on main thread)
-  const grouped = events.reduce(
-    (acc: Record<string, number>, ev: { type: string }) => {
-      acc[ev.type] = (acc[ev.type] || 0) + 1;
-      return acc;
-    },
-    {}
-  );
+  // Keep the last (potentially incomplete) line for next iteration
+  const remainingBuffer = lines.at(-1) || '';
 
-  const processedData = Object.entries(grouped).map(([type, count]) => ({
+  return processStream(reader, decoder, grouped, remainingBuffer);
+}
+
+function processGroupedData(grouped: Record<string, number>): ProcessedEvent[] {
+  return Object.entries(grouped).map(([type, count]) => ({
     type: type.replace('Event', '').replace('PullRequest', 'PR'),
     count: count as number,
   }));
+}
 
-  return processedData;
+export async function fetchAndProcessGitHubEvents(): Promise<ProcessedEvent[]> {
+  const response = await fetch('/2024-01-01-15.json.gz', { cache: 'no-store' });
+
+  if (!response.body) {
+    throw new Error('Response body is null');
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  const grouped: Record<string, number> = {};
+
+  await processStream(reader, decoder, grouped);
+
+  return processGroupedData(grouped);
 }

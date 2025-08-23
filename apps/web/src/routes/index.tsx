@@ -22,34 +22,69 @@ function HomeComponent() {
 
       <div className="mt-4 flex flex-col gap-4">
         <h2 className="font-bold font-mono text-2xl">
-          Massive GitHub Event Visualizer
+          Frontend Performance Solutions
         </h2>
         <p className="text-muted-foreground text-sm">
-          A demonstration of how Web Workers can prevent UI freezing when
-          processing large datasets.
+          A demonstration of different approaches to handle large data
+          processing without freezing the UI.
         </p>
         <p className="text-muted-foreground text-sm">
-          This app processes a 445MB GitHub Archive file and visualizes event
-          data using charts.
-        </p>
-        <p className="text-muted-foreground text-sm">
-          Compare the performance difference between main thread processing
-          (freezes UI) and Web Worker processing (smooth experience).
+          This app processes a large GitHub events dataset and visualizes the
+          results using charts. Explore three different approaches to understand
+          frontend performance optimization.
         </p>
       </div>
 
-      <div className="mt-8 flex gap-4">
+      <div className="mt-6 rounded-lg border border-indigo-200 bg-indigo-50 p-4">
+        <h3 className="mb-2 font-semibold text-indigo-800">
+          📊 About the dataset
+        </h3>
+        <p className="text-indigo-700 text-sm">
+          We're processing a <strong>79MB gzipped file</strong> containing{' '}
+          <strong>NDJSON (Newline Delimited JSON)</strong> data with hundreds of
+          thousands of GitHub events from January 1st, 2024. When uncompressed,
+          it's several hundred MB of real production data from GitHub Archive.
+          Each line is a valid JSON object representing a GitHub event (pushes,
+          pull requests, issues, etc.). Learn more about{' '}
+          <a
+            className="font-medium text-indigo-900 underline hover:text-indigo-950"
+            href="https://en.wikipedia.org/wiki/JSON_streaming#Newline-delimited_JSON"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            NDJSON format
+          </a>
+          .
+        </p>
+      </div>
+
+      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
         <Link
-          className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground text-sm hover:bg-primary/90"
-          to="/main-thread"
+          className="inline-flex items-center justify-center rounded-md bg-red-500 px-4 py-3 font-medium text-sm text-white transition-colors hover:bg-red-600"
+          to="/freezing"
         >
-          Main Thread Demo (Freezes)
+          <div className="text-center">
+            <div className="font-bold">UI Freezing Demo</div>
+            <div className="text-xs opacity-90">The Problem</div>
+          </div>
         </Link>
         <Link
-          className="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 font-medium text-secondary-foreground text-sm hover:bg-secondary/90"
+          className="inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-3 font-medium text-sm text-white transition-colors hover:bg-blue-600"
+          to="/streaming"
+        >
+          <div className="text-center">
+            <div className="font-bold">Streaming Solution</div>
+            <div className="text-xs opacity-90">Solution 1</div>
+          </div>
+        </Link>
+        <Link
+          className="inline-flex items-center justify-center rounded-md bg-green-500 px-4 py-3 font-medium text-sm text-white transition-colors hover:bg-green-600"
           to="/web-worker"
         >
-          Web Worker Demo (Smooth)
+          <div className="text-center">
+            <div className="font-bold">Web Worker Solution</div>
+            <div className="text-xs opacity-90">Solution 2</div>
+          </div>
         </Link>
       </div>
     </div>
